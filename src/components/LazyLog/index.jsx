@@ -267,13 +267,7 @@ export default class LazyLog extends Component {
 
   componentWillUnmount() {
     this.endRequest();
-
-    if (props.pollInterval !== null) {
-      this.interval = setInterval(
-        this.request.bind(this),
-        this.props.pollInterval
-      )
-    }
+    this.pollInterval && clearInterval(this.pollInterval);
   }
 
   request() {
@@ -300,7 +294,7 @@ export default class LazyLog extends Component {
   }
 
   schedulePoll() {
-    this.interval && clearInterval(this.interval)
+    this.interval && clearInterval(this.interval);
   }
 
   handleUpdate = ({ lines: moreLines, encodedLog }) => {
